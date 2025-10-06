@@ -142,12 +142,12 @@ export default function HajAinaFashion() {
             HAJ'AINA
           </h1>
           <div className="hero-subtext invisible flex items-center mb-10 gap-3">
-            <p className="text-lg md:text-lg font-light tracking-[0.05em] opacity-90">
+            <p className="text-lg md:text-xl font-meliora font-light tracking-[0.05em] opacity-90">
               Mihaja, Manaja Aina, Manaja Tantara
             </p> 
             <Image src="/img/madagascar.png" alt="" width="20" height="0" className="mt-1"/>
           </div>
-          <p className="hero-description invisible text-base md:text-lg mb-10 leading-relaxed font-light opacity-80 text-justify">
+          <p className="hero-description invisible text-base md:text-lg mb-10 leading-relaxed font-light opacity-80 md:text-justify">
             Haj'Aina façonne l'histoire de la mode éthique et durable à Madagascar aux côtés de ses plus grands acteurs.
             Rejoignez-nous et participez vous aussi à cette démarche quotidienne vers une mode plus responsable.
           </p>

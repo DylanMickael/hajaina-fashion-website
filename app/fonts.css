@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'meliora';
+  src: url('/fonts/MelioraScript.otf') format('opentype');
+}
+
+.font-meliora {
+  font-family: 'meliora';
+}
