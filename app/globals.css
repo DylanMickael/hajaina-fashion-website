@@ -219,7 +219,7 @@ header.invert {
 }
 
 header.invert a, header.invert button {
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .navlink.active {
@@ -274,12 +274,12 @@ header.invert a, header.invert button {
 
 /* Scan Animation */
 .scanner {
-  /* animation: scan-animation 3s infinite ease-in-out; */
+  animation: scan-animation 3s infinite ease-in-out;
   top: 35%;
 }
 
 .scanned-image {
-  /* animation: height-animation 3s infinite ease-in-out; */
+  animation: height-animation 3s infinite ease-in-out;
   background-image: url('/img/Collection1.jpg');
   background-size: cover;
   background-position: center top;
@@ -294,7 +294,7 @@ header.invert a, header.invert button {
 }
 
 .qrcode-frame {
-  /* animation: height-animation-reverse 3s infinite ease-in-out; */
+  animation: height-animation-reverse 3s infinite ease-in-out;
   background-image: url('/img/frame.png');
   background-size: cover;
   background-position: center bottom;

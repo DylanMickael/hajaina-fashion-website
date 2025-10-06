@@ -17,13 +17,13 @@ import { useAnimation } from "@/animations"
 export default function HajAinaFashion() {
   useAnimation([
     "heroSection",
-    // "collectionSection",
-    // "designersSection",
-    // "collaborationsSection",
-    // "ethiqueSection",
-    // "recyclageSection",
-    // "newsletterSection",
-    // "qrcodeSection",
+    "collectionSection",
+    "designersSection",
+    "collaborationsSection",
+    "ethiqueSection",
+    "recyclageSection",
+    "newsletterSection",
+    "qrcodeSection",
   ]);
   
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -154,7 +154,7 @@ export default function HajAinaFashion() {
           <Link href="/collections">
             <Button
               size="lg"
-              className="hero-button invisible bg-green-600 text-black hover:bg-green-500 text-xs tracking-[0.15em] px-8 py-4 font-normal uppercase"
+              className="hero-button invisible bg-green-700 text-white hover:bg-green-600 text-xs tracking-[0.15em] px-8 py-4 font-normal uppercase"
             >
               Explorer les Collections
               <ArrowRight className="ml-3 h-4 w-4" />
@@ -525,7 +525,7 @@ export default function HajAinaFashion() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-5xl font-extralight tracking-[0.2em] mb-8 serif-font">
-                Rendez vos créations uniques
+                Créations uniques
               </h2>
               <div className="w-32 h-px bg-black mb-10" />
               <p className="text-xl leading-relaxed mb-10 text-gray-800 font-light">
