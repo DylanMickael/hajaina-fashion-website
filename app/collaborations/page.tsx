@@ -31,6 +31,7 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
+import Assistant from "@/components/Assistant";
 
 export default function CollaborationsPage() {
   type MarketplaceCategoryKey = "matieres-premieres" | "vetements" | "services" | "accessoires"
@@ -255,7 +256,8 @@ export default function CollaborationsPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-
+      <Assistant />
+      
       <div className="pt-16 h-screen flex">
         {/* Sidebar */}
         <div className="w-80 bg-sidebar border-r flex flex-col">

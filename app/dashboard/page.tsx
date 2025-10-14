@@ -5,19 +5,20 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
+  User,
+  BookOpen,
+  Store,
+  Briefcase,
+  Handshake,
   Palette,
-  Heart,
+  GalleryHorizontal,
+  Sparkles,
   Settings,
   LogOut,
-  Handshake,
-  BookOpen,
-  Briefcase,
-  Sparkles,
-} from "lucide-react"; // Added Briefcase icon for services
+} from "lucide-react";
 import Header from "@/components/header";
 import Link from "next/link"; // Import Link
 import Footer from "@/components/footer"; // Added import
-import Assistant from "@/components/Assistant";
 
 export default function DashboardPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,6 +51,7 @@ export default function DashboardPage() {
     return null; // Or a loading spinner
   }
 
+
   return (
     <div className="min-h-screen bg-white text-black pt-20">
       <Header />
@@ -72,161 +74,122 @@ export default function DashboardPage() {
               <LogOut className="ml-2 h-4 w-4" />
             </Button>
           </div>
-          <Assistant />
-
-          {userRole === "creator" && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mt-16">
-              <Card className="bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Sparkles className="h-8 w-8 text-black" />
-                  </div>
-                  <h3 className="text-xl font-light mb-4 serif-font tracking-wide">
-                    Suite IA
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed mb-6">
-                    Utiliser les IA de la plateforme.
-                  </p>
-                  <Link href="/chat">
-                    <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">
-                      Accéder
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-              <Card className="bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Palette className="h-8 w-8 text-black" />
-                  </div>
-                  <h3 className="text-xl font-light mb-4 serif-font tracking-wide">
-                    Gérer mes Collections
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed mb-6">
-                    Ajoutez, modifiez ou supprimez vos collections et pièces.
-                  </p>
-                  <Link href="/collections/gestion">
-                    <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">
-                      Accéder
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-              <Card className="bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Briefcase className="h-8 w-8 text-black" />
-                  </div>
-                  <h3 className="text-xl font-light mb-4 serif-font tracking-wide">
-                    Mes Services
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed mb-6">
-                    Gérez les services que vous proposez (stylisme, conseil,
-                    etc.).
-                  </p>
-                  <Link href="/service">
-                    <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">
-                      Gérer les Services
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-              <Card className="bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Handshake className="h-8 w-8 text-black" />
-                  </div>
-                  <h3 className="text-xl font-light mb-4 serif-font tracking-wide">
-                    Mes Collaborations
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed mb-6">
-                    Gérez vos partenariats et projets collaboratifs.
-                  </p>
-                  <Link href="/collaborations">
-                    <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">
-                      Voir les Collaborations
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-              <Card className="bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <BookOpen className="h-8 w-8 text-black" />
-                  </div>
-                  <h3 className="text-xl font-light mb-4 serif-font tracking-wide">
-                    Mon Blog
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed mb-6">
-                    Créez et gérez vos articles de blog éthique et de mode.
-                  </p>
-                  <Link href="/blog">
-                    <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">
-                      Gérer mon Blog
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-              <Card className="bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Settings className="h-8 w-8 text-black" />
-                  </div>
-                  <h3 className="text-xl font-light mb-4 serif-font tracking-wide">
-                    Paramètres du Profil
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed mb-6">
-                    Mettez à jour vos informations personnelles et
-                    professionnelles.
-                  </p>
-                  <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">
-                    Modifier
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          )}
-
-          {userRole === "amateur" && (
-            <div className="grid md:grid-cols-2 gap-12 mt-16">
-              <Card className="bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Heart className="h-8 w-8 text-black" />
-                  </div>
-                  <h3 className="text-xl font-light mb-4 serif-font tracking-wide">
-                    Mes Favoris
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed mb-6">
-                    Retrouvez toutes les collections et créations que vous avez
-                    aimées.
-                  </p>
-                  <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">
-                    Voir mes Favoris
-                  </Button>
-                </CardContent>
-              </Card>
-              <Card className="bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Settings className="h-8 w-8 text-black" />
-                  </div>
-                  <h3 className="text-xl font-light mb-4 serif-font tracking-wide">
-                    Paramètres du Compte
-                  </h3>
-                  <p className="text-gray-600 font-light leading-relaxed mb-6">
-                    Gérez vos informations personnelles et vos préférences.
-                  </p>
-                  <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">
-                    Modifier
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          )}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mt-16">
+            {/* Mon profile */}
+            <Card className="py-2 bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <User className="h-8 w-8 text-black" />
+                </div>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Mon profile</h3>
+                <p className="text-gray-600 font-light leading-relaxed mb-6">Gérer vos informations personnelles.</p>
+                <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Modifier</Button>
+              </CardContent>
+            </Card>
+            {/* Mon blog */}
+            <Card className="py-2 bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <BookOpen className="h-8 w-8 text-black" />
+                </div>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Mon blog</h3>
+                <p className="text-gray-600 font-light leading-relaxed mb-6">Créer et gérer vos articles de blog.</p>
+                <Link href="/blog">
+                  <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Accéder</Button>
+                </Link>
+              </CardContent>
+            </Card>
+            {/* Mes collections */}
+            <Card className="py-2 bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Palette className="h-8 w-8 text-black" />
+                </div>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Mes collections</h3>
+                <p className="text-gray-600 font-light leading-relaxed mb-6">Gérer vos collections et pièces.</p>
+                <Link href="/collections/gestion">
+                  <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Accéder</Button>
+                </Link>
+              </CardContent>
+            </Card>
+            {/* Ma boutique */}
+            <Card className="py-2 bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Store className="h-8 w-8 text-black" />
+                </div>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Ma boutique</h3>
+                <p className="text-gray-600 font-light leading-relaxed mb-6">Gérer votre boutique et vos produits.</p>
+                <Link href="/collections">
+                  <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Accéder</Button>
+                </Link>
+              </CardContent>
+            </Card>
+            {/* Mes services */}
+            <Card className="py-2 bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Briefcase className="h-8 w-8 text-black" />
+                </div>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Mes services</h3>
+                <p className="text-gray-600 font-light leading-relaxed mb-6">Gérer les services que vous proposez.</p>
+                <Link href="/service">
+                  <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Accéder</Button>
+                </Link>
+              </CardContent>
+            </Card>
+            {/* Mes collaborations */}
+            <Card className="py-2 bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Handshake className="h-8 w-8 text-black" />
+                </div>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Mes collaborations</h3>
+                <p className="text-gray-600 font-light leading-relaxed mb-6">Gérer vos partenariats et projets collaboratifs.</p>
+                <Link href="/collaborations">
+                  <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Accéder</Button>
+                </Link>
+              </CardContent>
+            </Card>
+            {/* Mes expositions */}
+            <Card className="py-2 bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <GalleryHorizontal className="h-8 w-8 text-black" />
+                </div>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Exposition en ligne</h3>
+                <p className="text-gray-600 font-light leading-relaxed mb-6">Gérer vos expositions et événements.</p>
+                <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Accéder</Button>
+              </CardContent>
+            </Card>
+            {/* Suite IA */}
+            <Card className="py-2 bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Sparkles className="h-8 w-8 text-black" />
+                </div>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Suite IA</h3>
+                <p className="text-gray-600 font-light leading-relaxed mb-6">Utiliser les IA de la plateforme.</p>
+                <Link href="/chat">
+                  <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Accéder</Button>
+                </Link>
+              </CardContent>
+            </Card>
+            {/* Parametres du compte */}
+            <Card className="py-2 bg-white text-center border-0 shadow-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Settings className="h-8 w-8 text-black" />
+                </div>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Parametres du compte</h3>
+                <p className="text-gray-600 font-light leading-relaxed mb-6">Gérer vos paramètres de compte et préférences.</p>
+                <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Modifier</Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
-      <Footer /> {/* Added Footer */}
+      <Footer />
     </div>
   );
 }

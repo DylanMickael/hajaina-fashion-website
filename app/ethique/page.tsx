@@ -79,9 +79,11 @@ export default function EthiquePage() {
               Préserver les traditions artisanales malgaches, autonomiser les communautés locales et construire un avenir durable pour la mode éthique à Madagascar.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-white text-black hover:bg-green-500 font-light tracking-[0.1em] uppercase px-10 py-4">
-                Faire un Don
-              </Button>
+              <Link href="https://www.leetchi.com/fr/c/cagnotte-hajaina-9201633" target="blank">
+                <Button className="bg-white text-black hover:bg-green-500 font-light tracking-[0.1em] uppercase px-10 py-4">
+                  Faire un Don
+                </Button>
+              </Link>
               <Button 
                 variant="outline" 
                 className="border-white text-white hover:bg-white hover:text-black bg-transparent font-light tracking-[0.1em] uppercase px-10 py-4"
