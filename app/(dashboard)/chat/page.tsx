@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useRef } from "react"
+import useChat from "@/hooks/use-chat"
+import { useRef } from "react"
 import Webcam from "react-webcam"
 import { Button } from "@/components/ui/button"
 import { Send, Image as ImageIcon, Camera, Loader2, X, ArrowLeft } from "lucide-react"
@@ -8,97 +9,24 @@ import Image from "next/image"
 import Header from "@/components/header"
 import Link from "next/link"
 
-interface Message {
-  role: "user" | "assistant";
-  content: string;
-  image?: string;
-}
-
 export default function ChatPage() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content: "Bonjour ! Je suis votre assistant mode personnel. Je peux vous aider à analyser votre style, suggérer des tenues et même analyser vos photos pour des conseils personnalisés. Comment puis-je vous aider aujourd'hui ?",
-    },
-  ]);
-  const [input, setInput] = useState("");
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [showCamera, setShowCamera] = useState(false);
-  const webcamRef = useRef<Webcam>(null);
-
-  const startCamera = () => {
-    setShowCamera(true);
-  };
-
-  const stopCamera = () => {
-    setShowCamera(false);
-  };
-
-  const capturePhoto = () => {
-    if (webcamRef.current) {
-      const imageSrc = webcamRef.current.getScreenshot();
-      setImagePreview(imageSrc || null);
-      setShowCamera(false);
-    }
-  };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSend = async () => {
-    if (!input && !imageFile) return;
-
-    try {
-      setLoading(true);
-      const userMessage: Message = {
-        role: "user",
-        content: input,
-        image: imagePreview || undefined,
-      };
-      setMessages(prev => [...prev, userMessage]);
-      setInput("");
-      setImageFile(null);
-      setImagePreview(null);
-
-      const response = await fetch('/api/live-edit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          text: input,
-          imageData: imagePreview ? imagePreview.split(',')[1] : undefined,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
-
-      const data = await response.json();
-
-      const assistantMessage: Message = {
-        role: 'assistant',
-        content: data.text,
-        image: data.image64 ? `data:image/png;base64,${data.image64}` : undefined,
-      };
-
-      setMessages(prev => [...prev, assistantMessage]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    messages,
+    input,
+    setInput,
+    imageFile,
+    setImageFile,
+    imagePreview,
+    setImagePreview,
+    loading,
+    showCamera,
+    webcamRef,
+    startCamera,
+    stopCamera,
+    capturePhoto,
+    handleImageUpload,
+    handleSend,
+  } = useChat();
 
   return (
     <div className="min-h-screen bg-white text-black">
