@@ -8,7 +8,8 @@ import { ArrowLeft, Instagram, Mail, MapPin, Award, Users, Palette, Handshake } 
 import Image from "next/image"
 import Link from "next/link"
 import Header from "@/components/header"
-import Footer from "@/components/footer" // Added import
+import Footer from "@/components/footer"
+import allStylistes from "@/data/stylistes.json";
 
 export default function StylisteProfilePage() {
   const { id } = useParams()
@@ -19,90 +20,6 @@ export default function StylisteProfilePage() {
   // Simulate fetching stylist data
   useEffect(() => {
     setLoading(true)
-    const allStylistes = [
-      {
-        id: "1",
-        name: "Miora Rasoanaivo",
-        specialty: "Couture Traditionnelle",
-        image: "/img/Miora.jpg",
-        location: "Antananarivo",
-        experience: "15 ans",
-        collectionsCount: 8,
-        awardsCount: 3,
-        bio: "Diplômée de l'École de Mode de Paris, Miora a consacré sa carrière à la valorisation des techniques traditionnelles malgaches. Elle travaille exclusivement avec des artisans locaux pour créer des pièces uniques qui racontent l'histoire de Madagascar. Son travail est une ode à l'authenticité et à la transmission du savoir-faire ancestral.",
-        philosophy:
-          "La mode doit être un pont entre les générations, préservant notre héritage tout en embrassant l'avenir. Chaque fil tissé est une connexion avec nos racines.",
-        specialties: ["Tissage traditionnel", "Broderie malgache", "Teintures naturelles", "Haute couture éthique"],
-        instagram: "@miora_couture",
-        email: "contact@mioracouture.mg",
-        featuredCollections: [
-          {
-            title: "Collection Eté 2024",
-            image: "/placeholder.svg?height=400&width=300&text=Miora+Autumn+Collection",
-            link: "/collections/1",
-          },
-          {
-            title: "Heritage Moderne",
-            image: "/placeholder.svg?height=400&width=300&text=Miora+Heritage+Collection",
-            link: "/collections/4",
-          },
-        ],
-      },
-      {
-        id: "2",
-        name: "Hery Andriantsoa",
-        specialty: "Mode Durable",
-        image: "/img/Hery.jpg",
-        location: "Fianarantsoa",
-        experience: "12 ans",
-        collectionsCount: 6,
-        awardsCount: 5,
-        bio: "Pionnier de la mode éco-responsable à Madagascar, Hery développe des techniques innovantes de recyclage textile. Son atelier fonctionne entièrement à l'énergie solaire et emploie 50 artisans locaux, garantissant un impact environnemental minimal et un impact social maximal.",
-        philosophy: "Créer de la beauté sans compromettre l'avenir de notre planète. La durabilité est notre luxe.",
-        specialties: ["Upcycling textile", "Matériaux bio", "Production zéro déchet", "Design circulaire"],
-        instagram: "@hery_sustainable",
-        email: "hery@ecofashion.mg",
-        featuredCollections: [
-          {
-            title: "Eco-Luxe Series",
-            image: "/placeholder.svg?height=400&width=300&text=Hery+Eco-Luxe+Collection",
-            link: "/collections/2",
-          },
-          {
-            title: "Soie Sauvage",
-            image: "/placeholder.svg?height=400&width=300&text=Hery+Wild+Silk+Collection",
-            link: "/collections/5",
-          },
-        ],
-      },
-      {
-        id: "3",
-        name: "Lalaina Rakoto",
-        specialty: "Prêt-à-Porter",
-        image: "/img/Lalaina.jpg",
-        location: "Toamasina",
-        experience: "8 ans",
-        collectionsCount: 12,
-        awardsCount: 2,
-        bio: "Jeune créatrice dynamique, Lalaina mélange influences urbaines et identité malgache. Ses créations séduisent une clientèle internationale tout en restant profondément ancrées dans la culture locale. Elle est la voix de la nouvelle génération de la mode malgache.",
-        philosophy: "La mode malgache peut conquérir le monde sans perdre son âme. L'audace est notre signature.",
-        specialties: ["Design contemporain", "Streetwear chic", "Accessoires innovants", "Mode unisexe"],
-        instagram: "@lalaina_design",
-        email: "lalaina@urbanmalagasy.com",
-        featuredCollections: [
-          {
-            title: "Urban Malagasy",
-            image: "/placeholder.svg?height=400&width=300&text=Lalaina+Urban+Collection",
-            link: "/collections/3",
-          },
-          {
-            title: "Nouvelle Vague",
-            image: "/placeholder.svg?height=400&width=300&text=Lalaina+New+Wave+Collection",
-            link: "/collections/6",
-          },
-        ],
-      },
-    ]
     const foundStyliste = allStylistes.find((s) => s.id === id)
     if (foundStyliste) {
       setStyliste(foundStyliste)

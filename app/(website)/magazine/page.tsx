@@ -8,90 +8,14 @@ import { Input } from "@/components/ui/input"
 import { Calendar, User, ArrowRight, Search } from "lucide-react"
 import Image from "next/image"
 import Header from "@/components/header"
-import Footer from "@/components/footer" // Added import
+import Footer from "@/components/footer" 
+import articles from "@/data/articles.json";
 
 export default function MagazinePage() {
   const [selectedCategory, setSelectedCategory] = useState("all")
-
-  const articles = [
-    {
-      id: 1,
-      title: "L'Art du Tissage Traditionnel Malgache",
-      excerpt:
-        "Plongée dans l'univers fascinant des techniques ancestrales de tissage qui inspirent nos créateurs contemporains.",
-      image: "/img/Collection6.jpg",
-      category: "Tradition",
-      author: "Miora Rasoanaivo",
-      date: "15 Mars 2024",
-      readTime: "8 min",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Mode Durable : Les Innovations de 2024",
-      excerpt:
-        "Découvrez les dernières innovations en matière de mode éco-responsable et leur impact sur l'industrie textile malgache.",
-      image: "/img/Collection1.jpg",
-      category: "Durabilité",
-      author: "Hery Andriantsoa",
-      date: "12 Mars 2024",
-      readTime: "6 min",
-      featured: false,
-    },
-    {
-      id: 3,
-      title: "Portrait : Hery Andriantsoa, Nouvelle Génération",
-      excerpt:
-        "Rencontre avec le jeune créateur qui révolutionne le streetwear malgache avec ses créations audacieuses.",
-      image: "/img/Hery.jpg",
-      category: "Portrait",
-      author: "Équipe Haj'Aina",
-      date: "10 Mars 2024",
-      readTime: "12 min",
-      featured: false,
-    },
-    {
-      id: 4,
-      title: "Tendances Eté-Hiver 2024",
-      excerpt: "Les couleurs, textures et silhouettes qui définiront la mode malgache dans les mois à venir.",
-      image: "/img/Collection3.jpg",
-      category: "Tendances",
-      author: "Équipe Haj'Aina",
-      date: "8 Mars 2024",
-      readTime: "10 min",
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "L'Impact Social de la Mode Éthique",
-      excerpt:
-        "Comment la mode éthique transforme les communautés rurales malgaches et crée de nouvelles opportunités.",
-      image: "/img/Collab3.jpg",
-      category: "Société",
-      author: "Dr. Ravo Andriamanalina",
-      date: "5 Mars 2024",
-      readTime: "15 min",
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Matières Premières : La Soie Sauvage Malgache",
-      excerpt:
-        "Exploration des propriétés uniques de la soie sauvage locale et de son utilisation dans la haute couture.",
-      image: "/img/Collab2.jpg",
-      category: "Matériaux",
-      author: "Miora Rasoanaivo",
-      date: "2 Mars 2024",
-      readTime: "7 min",
-      featured: false,
-    },
-  ]
-
   const categories = ["all", "Tradition", "Durabilité", "Portrait", "Tendances", "Société", "Matériaux"]
-
   const filteredArticles =
     selectedCategory === "all" ? articles : articles.filter((article) => article.category === selectedCategory)
-
   const featuredArticle = articles.find((article) => article.featured)
   const regularArticles = articles.filter((article) => !article.featured)
 

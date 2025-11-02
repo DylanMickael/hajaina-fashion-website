@@ -6,8 +6,8 @@ import { Handshake } from "lucide-react"
 
 export const ManajaButton = () => {
   const [clicked, setClicked] = useState(false)
-  const className = `font-light tracking-[0.1em] uppercase px-8 py-3 border-gray-300 hover:border-black bg-transparent
-        ${clicked && "bg-green-600 text-gray-200 border-gray-400 hover:bg-gray-400 hover:text-gray-200 hover:border-gray-400"}`
+  const className = `font-light tracking-[0.1em] uppercase px-8 py-3 bg-black text-white
+        ${clicked && "bg-green-600 text-gray-200 border-gray-400 font-bold"}`
 
   return (
     <Button
@@ -15,8 +15,8 @@ export const ManajaButton = () => {
       onClick={() => setClicked(!clicked)}
       className={className}
     >
-      {!clicked ? <Handshake className="mr-2 h-4 w-4" /> :""}
-      {clicked ? "Hajaina":"Manaja"}
+      {clicked ? "300":"Manaja"}
+      <Handshake className="mr-2 h-4 w-4" />
     </Button>
   )
 }

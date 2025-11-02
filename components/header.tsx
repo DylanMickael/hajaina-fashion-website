@@ -3,9 +3,16 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LogOut, Menu, X, User } from "lucide-react"
+import { LogOut, Menu, X, User, ShoppingCart, Bell, UserCircle, Settings, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useAnimation } from "@/animations"
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 function useHeaderState() {
   const pathname = usePathname()
@@ -45,7 +52,6 @@ function useHeaderState() {
 
 export function HeaderDesktop() {
   const { isLoggedIn, isActive, handleLogout, shouldInvert } = useHeaderState()
-  const [lang, setLang] = useState("fr")
 
   return (
     <header
@@ -81,31 +87,46 @@ export function HeaderDesktop() {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <select
-              value={lang}
-              onChange={e => setLang(e.target.value)}
-              className="px-2 py-1 text-xs bg-transparent"
-              aria-label="Choix de la langue"
-            >
-              <option value="fr">FR</option>
-              <option value="mg">MG</option>
-            </select>
             {isLoggedIn ? (
               <>
-                <Link href="/dashboard">
+                <Link href="/shopping-cart">
                   <Button variant="ghost" size="sm" className="text-xs tracking-[0.1em] font-light uppercase">
-                    Mon Compte
+                    <ShoppingCart className="h-5 w-5"/>
                   </Button>
                 </Link>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleLogout}
-                  className="text-xs tracking-[0.1em] font-light uppercase"
-                >
-                  Déconnexion
-                  <LogOut className="ml-2 h-4 w-4" />
-                </Button>
+                <Link href="/notifications">
+                  <Button variant="ghost" className="w-full text-xs uppercase font-light tracking-widest">
+                    <Bell className="h-5 w-5" />
+                  </Button>
+                </Link>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="text-xs tracking-[0.1em] font-light uppercase flex items-center gap-2">
+                      <UserCircle className="h-5 w-5"/>
+                      <ChevronDown className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48 bg-white px-4 py-2">
+                    <Link href="/dashboard">
+                      <DropdownMenuItem className="">
+                        <User className="mr-2 h-4 w-4" />
+                        Mon Compte
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuSeparator />
+                    <Link href="/settings">
+                      <DropdownMenuItem>
+                        <Settings className="mr-2 h-4 w-4" />
+                        Paramètres
+                      </DropdownMenuItem>
+                    </Link>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="text-red-600" onClick={handleLogout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Déconnexion
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </>
             ) : (
               <Link href="/login">
@@ -136,20 +157,23 @@ export function HeaderMobile() {
         <Link href="/" className="text-xl font-light tracking-[0.2em] serif-font">
           <img src="/logo-transparent.png" alt="Haj'Aina" className="h-[36px]" />
         </Link>
-        <div className="flex items-center gap-2">
-          <select
-            value={lang}
-            onChange={e => setLang(e.target.value)}
-            className="px-2 py-1 text-xs bg-white"
-            aria-label="Choix de la langue"
-          >
-            <option value="fr">FR</option>
-            <option value="mg">MG</option>
-          </select>
-          <button onClick={() => setOpen(!open)} aria-label="Toggle Menu">
-            {open ? <X size={26} /> : <Menu size={26} />}
-          </button>
-        </div>
+        {isLoggedIn && (
+          <div className="flex">
+            <Link href="/cart" onClick={() => setOpen(false)}>
+              <Button variant="ghost" className="w-full text-xs uppercase font-light tracking-widest">
+                <ShoppingCart className="h-4 w-4" />
+              </Button>
+            </Link>
+            <Link href="/notifications" onClick={() => setOpen(false)}>
+              <Button variant="ghost" className="w-full text-xs uppercase font-light tracking-widest">
+                <Bell className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+            <Button onClick={() => setOpen(!open)} aria-label="Toggle Menu">
+              {open ? <X className="h-4 w-4" /> : <Menu className="ml-2 h-4 w-4" />}
+            </Button>
+          </div>
+        )}
       </div>
 
       {open && (

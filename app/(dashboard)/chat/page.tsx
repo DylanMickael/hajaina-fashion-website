@@ -4,10 +4,9 @@ import useChat from "@/hooks/use-chat"
 import { useRef } from "react"
 import Webcam from "react-webcam"
 import { Button } from "@/components/ui/button"
-import { Send, Image as ImageIcon, Camera, Loader2, X, ArrowLeft } from "lucide-react"
+import { Send, Image as ImageIcon, Camera, Loader2, X } from "lucide-react"
 import Image from "next/image"
 import Header from "@/components/header"
-import Link from "next/link"
 
 export default function ChatPage() {
   const {
@@ -32,17 +31,9 @@ export default function ChatPage() {
     <div className="min-h-screen bg-white text-black">
         <Header />          
         <section className="py-24 bg-gray-50 min-h-screen">
-            <Link className="text-white mt-10 fixed top-50 left-0" href="/dashboard">
-                <Button
-                    size="lg"
-                    className="bg-gray-800 hover:bg-gray-900 focus:ring-gray-700"
-                >
-                    <ArrowLeft className="text-white h-20 w-20" />
-                </Button>
-            </Link>
             {
                 messages.length === 1 &&
-                <div className="container mx-auto px-6 pt-5">
+                <div className="container mx-auto px-6 pt-10">
                     <div className="text-center mb-16">
                         <h1 className="text-4xl md:text-6xl font-extralight tracking-[0.2em] mb-6 serif-font">
                         Assistant Mode IA
@@ -86,35 +77,7 @@ export default function ChatPage() {
                 ))}
             </div>
             {/* Input Area */}
-            <div className="border-none bg-gray-50 w-screen mx-auto px-6 max-w-4xl pb-6 fixed bottom-0 left-[50%] -translate-x-[50%]">
-                {showCamera && (
-                    <div className="absolute bottom-full left-0 right-0 bg-black p-4">
-                        <div className="relative aspect-video max-w-2xl mx-auto flex flex-col items-center">
-                        <Webcam
-                            audio={false}
-                            ref={webcamRef}
-                            screenshotFormat="image/jpeg"
-                            className="w-full h-[500px] object-contain rounded-lg z-1 bg-black"
-                        />
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-4">
-                            <Button
-                            onClick={capturePhoto}
-                            className="bg-white text-black hover:bg-white/90 z-10"
-                            >
-                            Prendre la photo
-                            </Button>
-                            <Button
-                            onClick={stopCamera}
-                            variant="outline"
-                            className="bg-white/10 border-white/20 text-white hover:bg-white/20 z-10"
-                            >
-                            Annuler
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-                )}
-
+            <div className="border-none bg-gray-50 w-screen mx-auto px-6 max-w-4xl pb-2 fixed bottom-5 left-[50%] -translate-x-[50%]">
                 {imagePreview && (
                     <div className="absolute bottom-full left-4 bg-white p-2 rounded-lg mb-2 border-gray-50">
                         <div className="relative h-24 w-24">
@@ -138,7 +101,6 @@ export default function ChatPage() {
                         </div>
                     </div>
                 )}
-
                 <div className="flex items-end gap-2">
                     <div className="flex-1 relative">
                         <textarea
@@ -197,6 +159,39 @@ export default function ChatPage() {
                     </div>
                 </div>
             </div>
+            {/* Webcam Area */}
+            {showCamera && (
+                <div className=" fixed inset-0 bg-black flex items-center justify-center z-50">
+                    <div className="relative max-w-lg h-full z-50">
+                        <Webcam
+                            audio={false}
+                            ref={webcamRef}
+                            screenshotFormat="image/jpeg"
+                            className="w-full h-full object-cover"
+                            videoConstraints={{
+                                width: { ideal: 1920 },
+                                height: { ideal: 1080 },
+                                facingMode: "user"
+                            }}
+                        />
+                        {/* Bouton fermer style Snapchat */}
+                        <button
+                            onClick={stopCamera}
+                            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 transition-colors flex items-center justify-center"
+                        >
+                            <X className="text-white w-6 h-6" />
+                        </button>
+                        
+                        <button
+                            onClick={capturePhoto}
+                            className="absolute bottom-8 left-1/2 -translate-x-1/2 hover:-translate-x-1/2 w-16 h-16 rounded-full border-4 border-white/50 bg-transparent hover:bg-white/10 transition-colors flex items-center justify-center group"
+                            aria-label="Prendre une photo"
+                        >
+                            <div className="w-12 h-12 rounded-full bg-white group-hover:bg-white/90 transition-colors"></div>
+                        </button>
+                    </div>
+                </div>
+            )}
         </section>
     </div>
   );

@@ -8,7 +8,7 @@ import { Recycle, MapPin, Clock, Gift, Truck, Scissors, Sparkles } from "lucide-
 import Image from "next/image"
 import Header from "@/components/header"
 import Link from "next/link" // Import Link
-import Footer from "@/components/footer" // Added import
+import Footer from "@/components/footer" 
 
 export default function RecyclagePage() {
   const steps = [

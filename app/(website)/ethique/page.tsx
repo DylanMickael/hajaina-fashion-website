@@ -7,54 +7,21 @@ import Image from "next/image"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import Link from "next/link"
+import fondationData from "@/data/fondation-data.json";
 
 export default function EthiquePage() {
-  //  Replaced ethics content with Haj'Aina Foundation presentation
-  const foundationValues = [
-    {
-      icon: Heart,
-      title: "Préservation Culturelle",
-      description: "Sauvegarder et valoriser les traditions artisanales malgaches pour les générations futures.",
-    },
-    {
-      icon: Users,
-      title: "Autonomisation Communautaire",
-      description: "Créer des opportunités économiques durables pour les artisans et leurs familles.",
-    },
-    {
-      icon: Globe,
-      title: "Impact Environnemental",
-      description: "Promouvoir des pratiques de mode respectueuses de l'environnement et de la biodiversité.",
-    },
-    {
-      icon: BookOpen,
-      title: "Éducation & Formation",
-      description: "Transmettre les savoir-faire traditionnels et former aux nouvelles techniques durables.",
-    },
-  ]
+  const foundationValues = fondationData.foundationValues;
+  const foundationImpacts = fondationData.foundationImpacts;
 
-  const foundationImpacts = [
-    {
-      number: "1,200+",
-      label: "Artisans Formés",
-      description: "Artisans bénéficiant de nos programmes de formation et d'accompagnement",
-    },
-    {
-      number: "25",
-      label: "Villages Partenaires",
-      description: "Communautés rurales intégrées dans nos programmes de développement",
-    },
-    {
-      number: "€150K",
-      label: "Fonds Collectés",
-      description: "Montant total des dons collectés pour nos projets en 2024",
-    },
-    {
-      number: "8",
-      label: "Projets Actifs",
-      description: "Initiatives en cours de développement à travers Madagascar",
-    },
-  ]
+  const getIcon = (name: string) => {
+    switch(name) {
+      case "Heart": return <Heart className="h-8 w-8 text-black" />;
+      case "Users": return <Users className="h-8 w-8 text-black" />;
+      case "Globe": return <Globe className="h-8 w-8 text-black" />;
+      case "BookOpen": return <BookOpen className="h-8 w-8 text-black" />;
+      default: return null;
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white text-black pt-20">
@@ -114,7 +81,7 @@ export default function EthiquePage() {
               >
                 <CardContent className="p-8">
                   <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <value.icon className="h-8 w-8 text-black" />
+                    {getIcon(value.icon)}
                   </div>
                   <h3 className="text-xl font-light mb-4 serif-font tracking-wide">{value.title}</h3>
                   <p className="text-gray-600 font-light leading-relaxed">{value.description}</p>

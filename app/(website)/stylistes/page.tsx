@@ -6,57 +6,10 @@ import { Instagram, Mail, MapPin, Award, Users, Palette } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import Header from "@/components/header"
-import Footer from "@/components/footer" // Added import
+import Footer from "@/components/footer"
+import stylistes from "@/data/stylistes.json";
 
 export default function StylistesPage() {
-  const stylistes = [
-    {
-      id: "1",
-      name: "Miora Rasoanaivo",
-      specialty: "Couture Traditionnelle",
-      image: "/img/Miora.jpg",
-      location: "Antananarivo",
-      experience: "15 ans",
-      collections: 8,
-      awards: 3,
-      bio: "Diplômée de l'École de Mode de Paris, Miora a consacré sa carrière à la valorisation des techniques traditionnelles malgaches. Elle travaille exclusivement avec des artisans locaux pour créer des pièces uniques qui racontent l'histoire de Madagascar.",
-      philosophy:
-        "La mode doit être un pont entre les générations, préservant notre héritage tout en embrassant l'avenir.",
-      specialties: ["Tissage traditionnel", "Broderie malgache", "Teintures naturelles"],
-      instagram: "@miora_couture",
-      email: "contact@mioracouture.mg",
-    },
-    {
-      id: "2",
-      name: "Hery Andriantsoa",
-      specialty: "Mode Durable",
-      image: "/img/Hery.jpg",
-      location: "Fianarantsoa",
-      experience: "12 ans",
-      collections: 6,
-      awards: 5,
-      bio: "Pionnier de la mode éco-responsable à Madagascar, Hery développe des techniques innovantes de recyclage textile. Son atelier fonctionne entièrement à l'énergie solaire et emploie 50 artisans locaux.",
-      philosophy: "Créer de la beauté sans compromettre l'avenir de notre planète.",
-      specialties: ["Upcycling textile", "Matériaux bio", "Production zéro déchet"],
-      instagram: "@hery_sustainable",
-      email: "hery@ecofashion.mg",
-    },
-    {
-      id: "3",
-      name: "Lalaina Rakoto",
-      specialty: "Prêt-à-Porter",
-      image: "/img/Lalaina.jpg",
-      location: "Toamasina",
-      experience: "8 ans",
-      collections: 12,
-      awards: 2,
-      bio: "Jeune créatrice dynamique, Lalaina mélange influences urbaines et identité malgache. Ses créations séduisent une clientèle internationale tout en restant profondément ancrées dans la culture locale.",
-      philosophy: "La mode malgache peut conquérir le monde sans perdre son âme.",
-      specialties: ["Design contemporain", "Streetwear chic", "Accessoires innovants"],
-      instagram: "@lalaina_design",
-      email: "lalaina@urbanmalagasy.com",
-    },
-  ]
 
   return (
     <div className="min-h-screen bg-white text-black pt-20">
@@ -140,14 +93,14 @@ export default function StylistesPage() {
                         <div className="flex items-center justify-center mb-2">
                           <Palette className="h-5 w-5 text-gray-600" />
                         </div>
-                        <div className="text-2xl font-light serif-font">{styliste.collections}</div>
+                        <div className="text-2xl font-light serif-font">{styliste.collectionsCount}</div>
                         <div className="text-xs text-gray-600 font-light uppercase tracking-wide">Collections</div>
                       </div>
                       <div className="text-center">
                         <div className="flex items-center justify-center mb-2">
                           <Award className="h-5 w-5 text-gray-600" />
                         </div>
-                        <div className="text-2xl font-light serif-font">{styliste.awards}</div>
+                        <div className="text-2xl font-light serif-font">{styliste.awardsCount}</div>
                         <div className="text-xs text-gray-600 font-light uppercase tracking-wide">Prix</div>
                       </div>
                       <div className="text-center">

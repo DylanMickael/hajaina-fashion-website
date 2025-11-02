@@ -32,220 +32,13 @@ import {
 import Image from "next/image"
 import { useState } from "react"
 import Assistant from "@/components/Assistant";
+import collaborationData from "@/data/collaboration-data.json";
 
 export default function CollaborationsPage() {
   type MarketplaceCategoryKey = "matieres-premieres" | "vetements" | "services" | "accessoires"
   const [activeTab, setActiveTab] = useState("messages")
   const [selectedConversation, setSelectedConversation] = useState("1")
   const [activeMarketplaceCategory, setActiveMarketplaceCategory] = useState<MarketplaceCategoryKey>("matieres-premieres")
-
-  const conversations = [
-    {
-      id: "1",
-      name: "ÉcoTextile Innovations",
-      lastMessage: "Les échantillons de tissus recyclés sont prêts",
-      time: "14:30",
-      unread: 2,
-      avatar: "/collabs/eco-textile-company.jpg",
-      status: "online",
-      type: "supplier",
-    },
-    {
-      id: "2",
-      name: "Atelier Couture Durable",
-      lastMessage: "Proposition de collaboration pour upcycling",
-      time: "12:15",
-      unread: 0,
-      avatar: "/collabs/sustainable-fashion-atelier.jpg",
-      status: "offline",
-      type: "agency",
-    },
-    {
-      id: "3",
-      name: "Marie Dubois - Styliste",
-      lastMessage: "J'ai terminé les croquis pour la collection",
-      time: "10:45",
-      unread: 1,
-      avatar: "/collabs/fashion-stylist-woman.png",
-      status: "online",
-      type: "freelancer",
-    },
-  ]
-
-  const messages = [
-    {
-      id: "1",
-      sender: "ÉcoTextile Innovations",
-      content:
-        "Bonjour ! Les échantillons de tissus recyclés que vous avez commandés sont maintenant prêts. Nous avons développé 3 nouvelles textures innovantes.",
-      time: "14:30",
-      isOwn: false,
-      attachments: ["echantillons-tissus.pdf"],
-    },
-    {
-      id: "2",
-      sender: "Vous",
-      content:
-        "Parfait ! Pouvez-vous m'envoyer les spécifications techniques ? J'aimerais aussi programmer une réunion pour discuter des quantités.",
-      time: "14:32",
-      isOwn: true,
-    },
-    {
-      id: "3",
-      sender: "ÉcoTextile Innovations",
-      content: "Bien sûr, je vous envoie tout ça. Êtes-vous disponible demain à 15h pour un appel vidéo ?",
-      time: "14:35",
-      isOwn: false,
-    },
-  ]
-
-  const todos = [
-    {
-      id: "1",
-      task: "Finaliser les spécifications techniques",
-      completed: false,
-      priority: "high",
-      dueDate: "2024-08-30",
-    },
-    {
-      id: "2",
-      task: "Organiser shooting photo collection",
-      completed: false,
-      priority: "medium",
-      dueDate: "2024-09-05",
-    },
-    { id: "3", task: "Réviser contrat avec ÉcoTextile", completed: true, priority: "high", dueDate: "2024-08-25" },
-    { id: "4", task: "Rechercher nouveaux fournisseurs bio", completed: false, priority: "low", dueDate: "2024-09-15" },
-  ]
-
-  const servicesByCategory = {
-    "matieres-premieres": [
-      {
-        id: "1",
-        title: "Coton Bio Certifié GOTS",
-        provider: "Green Fabrics Co.",
-        category: "Matières Premières",
-        price: "25-45€/m",
-        rating: 4.8,
-        location: "Lyon, France",
-        image: "/collabs/organic-fabric-samples.jpg",
-        description: "Coton 100% biologique certifié GOTS, disponible en 12 coloris naturels",
-        inStock: true,
-        minOrder: "50m",
-      },
-      {
-        id: "2",
-        title: "Soie Recyclée Premium",
-        provider: "Silk Revival",
-        category: "Matières Premières",
-        price: "80-120€/m",
-        rating: 4.9,
-        location: "Paris, France",
-        image: "/collabs/organic-fabric-samples.jpg",
-        description: "Soie recyclée de haute qualité, texture luxueuse",
-        inStock: true,
-        minOrder: "20m",
-      },
-      {
-        id: "3",
-        title: "Lin Français Naturel",
-        provider: "Normandie Textiles",
-        category: "Matières Premières",
-        price: "35-55€/m",
-        rating: 4.7,
-        location: "Caen, France",
-        image: "/collabs/organic-fabric-samples.jpg",
-        description: "Lin cultivé en Normandie, fibres longues premium",
-        inStock: false,
-        minOrder: "30m",
-      },
-    ],
-    vetements: [
-      {
-        id: "4",
-        title: "Robes Vintage Upcyclées",
-        provider: "Atelier Renaissance",
-        category: "Vêtements",
-        price: "150-300€",
-        rating: 4.6,
-        location: "Bordeaux, France",
-        image: "/collabs/sustainable-fashion-atelier.jpg",
-        description: "Collection de robes vintage transformées avec techniques modernes",
-        inStock: true,
-        minOrder: "1 pièce",
-      },
-      {
-        id: "5",
-        title: "Blazers Éco-responsables",
-        provider: "Mode Durable Paris",
-        category: "Vêtements",
-        price: "200-450€",
-        rating: 4.8,
-        location: "Paris, France",
-        image: "/collabs/sustainable-fashion-atelier.jpg",
-        description: "Blazers confectionnés avec matériaux recyclés",
-        inStock: true,
-        minOrder: "1 pièce",
-      },
-    ],
-    services: [
-      {
-        id: "6",
-        title: "Patronage 3D Avancé",
-        provider: "Digital Fashion Lab",
-        category: "Services",
-        price: "200-500€",
-        rating: 4.9,
-        location: "Paris, France",
-        image: "/collabs/3d-fashion-design.jpg",
-        description: "Création de patrons 3D avec simulation réaliste des tissus",
-        inStock: true,
-        minOrder: "1 projet",
-      },
-      {
-        id: "7",
-        title: "Shooting Photo Mode",
-        provider: "Studio Lumière",
-        category: "Services",
-        price: "800-2000€",
-        rating: 4.7,
-        location: "Lyon, France",
-        image: "/collabs/3d-fashion-design.jpg",
-        description: "Shooting professionnel avec équipe créative complète",
-        inStock: true,
-        minOrder: "1 journée",
-      },
-    ],
-    accessoires: [
-      {
-        id: "8",
-        title: "Boutons Vintage Artisanaux",
-        provider: "Vintage Notions",
-        category: "Accessoires",
-        price: "2-8€/pièce",
-        rating: 4.6,
-        location: "Marseille, France",
-        image: "/collabs/vintage-buttons-collection.jpg",
-        description: "Collection unique de boutons vintage et artisanaux",
-        inStock: true,
-        minOrder: "10 pièces",
-      },
-      {
-        id: "9",
-        title: "Fermetures Éclair Bio",
-        provider: "EcoZip France",
-        category: "Accessoires",
-        price: "3-12€/pièce",
-        rating: 4.5,
-        location: "Toulouse, France",
-        image: "/collabs/vintage-buttons-collection.jpg",
-        description: "Fermetures éclair en matériaux recyclés et biodégradables",
-        inStock: true,
-        minOrder: "25 pièces",
-      },
-    ],
-  }
-
   const marketplaceCategories = [
     { id: "matieres-premieres", label: "Matières Premières", icon: Package },
     { id: "vetements", label: "Vêtements", icon: Shirt },
@@ -263,17 +56,6 @@ export default function CollaborationsPage() {
         <div className="w-80 bg-sidebar border-r flex flex-col">
           {/* Header */}
           <div className="p-4 border-b">
-            <div className="flex">
-              <Link href="/dashboard">
-                <Button
-                    size="sm"
-                    className="bg-white text-black focus:ring-gray-700"
-                >
-                    <ArrowLeft className="text-black h-20 w-20" />
-                </Button>
-              </Link>
-              <h1 className="text-xl font-light serif-font text-sidebar-foreground mb-4">Collaborations</h1>
-            </div>
             {/* Tab Navigation */}
             <div className="flex space-x-1 bg-muted/50 rounded-lg p-1">
               <button
@@ -316,7 +98,7 @@ export default function CollaborationsPage() {
           <div className="flex-1 overflow-y-auto">
             {activeTab === "messages" ? (
               <div className="p-2">
-                {conversations.map((conv) => (
+                {collaborationData.conversations.map((conv) => (
                   <div
                     key={conv.id}
                     onClick={() => setSelectedConversation(conv.id)}
@@ -362,7 +144,7 @@ export default function CollaborationsPage() {
               </div>
             ) : (
               <div className="p-2">
-                {servicesByCategory[activeMarketplaceCategory]?.map((service) => (
+                {collaborationData.servicesByCategory[activeMarketplaceCategory]?.map((service) => (
                   <Card
                     key={service.id}
                     className="mb-3 cursor-pointer hover:shadow-md transition-all duration-200"
@@ -451,7 +233,7 @@ export default function CollaborationsPage() {
 
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                {messages.map((message) => (
+                {collaborationData.messages.map((message) => (
                   <div key={message.id} className={`flex ${message.isOwn ? "justify-end" : "justify-start"}`}>
                     <div
                       className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg shadow-sm ${
@@ -531,12 +313,12 @@ export default function CollaborationsPage() {
                   })}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  {servicesByCategory[activeMarketplaceCategory]?.length || 0} résultats
+                  {collaborationData.servicesByCategory[activeMarketplaceCategory]?.length || 0} résultats
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {servicesByCategory[activeMarketplaceCategory]?.map((service) => (
+                {collaborationData.servicesByCategory[activeMarketplaceCategory]?.map((service) => (
                   <Card
                     key={service.id}
                     className="hover:shadow-lg bg-white transition-all duration-200 cursor-pointer group"
@@ -623,7 +405,7 @@ export default function CollaborationsPage() {
               </Button>
             </div>
             <div className="space-y-2">
-              {todos.slice(0, 4).map((todo) => (
+              {collaborationData.todos.slice(0, 4).map((todo) => (
                 <div
                   key={todo.id}
                   className="flex items-center space-x-2 p-2 rounded hover:bg-muted/50 border border-transparent hover transition-all duration-200"

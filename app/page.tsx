@@ -33,48 +33,48 @@ export default function HajAinaFashion() {
       specialty: "Couture Traditionnelle",
       image: "/img/Miora.jpg",
       description: "Fusion entre tradition malgache et modernité",
-      id: "1", // Added ID for linking
+      id: "1", 
     },
     {
       name: "Hery Andriantsoa",
       specialty: "Mode Durable",
       image: "/img/Hery.jpg",
       description: "Pionnier de la mode éco-responsable à Madagascar",
-      id: "2", // Added ID for linking
+      id: "2", 
     },
     {
       name: "Lalaina Rakoto",
       specialty: "Prêt-à-Porter",
       image: "/img/Lalaina.jpg",
       description: "Créations contemporaines aux influences malgaches",
-      id: "3", // Added ID for linking
+      id: "3", 
     },
   ]
 
   const collections = [
     {
-      id: "1", // Added ID for linking
+      id: "1", 
       title: "Collection Eté 2024",
       designer: "Miora Rasoanaivo",
       image: "/img/Collection3.jpg",
       category: "Couture",
     },
     {
-      id: "2", // Added ID for linking
+      id: "2", 
       title: "Eco-Luxe Series",
       designer: "Hery Andriantsoa",
       image: "/img/Collection1.jpg",
       category: "Durable",
     },
     {
-      id: "3", // Added ID for linking
+      id: "3", 
       title: "Urban Malagasy",
       designer: "Lalaina Rakoto",
       image: "/img/Collection2.jpg",
       category: "Streetwear",
     },
     {
-      id: "4", // Added ID for linking
+      id: "4", 
       title: "Heritage Moderne",
       designer: "Miora Rasoanaivo",
       image: "/img/Collection4.jpg",
