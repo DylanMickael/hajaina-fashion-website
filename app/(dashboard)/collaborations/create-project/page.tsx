@@ -100,13 +100,13 @@ export default function CreateProjectPage() {
       case "info":
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-light serif-font mb-6">Informations du projet</h2>
+            <h2 className="text-2xl font-light serif-font mb-6">Informations sur le projet</h2>
             <div className="grid grid-cols-2 gap-6">
               {projectTypes.map((type) => (
                 <Card
                   key={type.id}
                   className={`cursor-pointer transition-all duration-500 hover:shadow-lg ${
-                    projectType === type.id ? "border-primary ring-2 ring-primary/20" : "hover:border-gray-300"
+                    projectType === type.id ? "bg-gray-50" : "hover:border-gray-300"
                   }`}
                   onClick={() => setProjectType(type.id)}
                 >
@@ -358,37 +358,16 @@ export default function CreateProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen pt-20">
       <Header />
       
       <div className="container mx-auto py-8 px-4">
         <div className="max-w-5xl mx-auto">
-
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center space-x-4">
-              {["info", "materials", "collaborators"].map((step, index) => (
-                <div key={step} className="flex items-center">
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${
-                      currentStep === step
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-muted-foreground"
-                    }`}
-                  >
-                    {index + 1}
-                  </div>
-                  {index < 2 && (
-                    <div className="w-16 h-0.5 mx-2 bg-muted" />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
           {renderStep()}
 
           <div className="flex justify-between mt-8">
             <Button
+              className="font-light"
               variant="outline"
               onClick={() => {
                 if (currentStep === "materials") setCurrentStep("info")
@@ -397,16 +376,17 @@ export default function CreateProjectPage() {
               disabled={currentStep === "info"}
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Précédent
+              PRECEDENT
             </Button>
             <Button
+              className="bg-black text-white hover:bg-800 font-light"
               onClick={() => {
                 if (currentStep === "info") setCurrentStep("materials")
                 else if (currentStep === "materials") setCurrentStep("collaborators")
                 else router.push("/collaborations")
               }}
             >
-              {currentStep === "collaborators" ? "Terminer" : "Suivant"}
+              {currentStep === "collaborators" ? "TERMINER" : "SUIVANT"}
               {currentStep !== "collaborators" && <ArrowRight className="w-4 h-4 ml-2" />}
             </Button>
           </div>

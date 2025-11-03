@@ -117,7 +117,6 @@ export default function WardrobePage() {
           </div>
         </div>
       </section>
-      <Footer /> {/* Added Footer */}
     </div>
   )
 }
