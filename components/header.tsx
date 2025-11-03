@@ -6,13 +6,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { LogOut, Menu, X, User, ShoppingCart, Bell, UserCircle, Settings, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useAnimation } from "@/animations"
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { Dropdown, DropdownItem, DropdownSeparator } from "@/components/ui/custom-dropdown"
 
 function useHeaderState() {
   const pathname = usePathname()
@@ -95,38 +89,38 @@ export function HeaderDesktop() {
                   </Button>
                 </Link>
                 <Link href="/notifications">
-                  <Button variant="ghost" className="w-full text-xs uppercase font-light tracking-widest">
+                  <Button variant="ghost" size="sm" className="text-xs tracking-[0.1em] font-light uppercase">
                     <Bell className="h-5 w-5" />
                   </Button>
                 </Link>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
+                <Dropdown
+                  trigger={
                     <Button variant="ghost" size="sm" className="text-xs tracking-[0.1em] font-light uppercase flex items-center gap-2">
                       <UserCircle className="h-5 w-5"/>
                       <ChevronDown className="h-4 w-4" />
                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-48 bg-white px-4 py-2">
-                    <Link href="/dashboard">
-                      <DropdownMenuItem className="">
-                        <User className="mr-2 h-4 w-4" />
-                        Mon Compte
-                      </DropdownMenuItem>
-                    </Link>
-                    <DropdownMenuSeparator />
-                    <Link href="/settings">
-                      <DropdownMenuItem>
-                        <Settings className="mr-2 h-4 w-4" />
-                        Paramètres
-                      </DropdownMenuItem>
-                    </Link>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem className="text-red-600" onClick={handleLogout}>
-                      <LogOut className="mr-2 h-4 w-4" />
-                      Déconnexion
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                  }
+                >
+                  <Link href="/dashboard">
+                    <DropdownItem className="flex items-center">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Mon Compte</span>
+                    </DropdownItem>
+                  </Link>
+                  <Link href="/settings">
+                    <DropdownItem className="flex items-center">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Paramètres</span>
+                    </DropdownItem>
+                  </Link>
+                  <DropdownItem 
+                    className="flex items-center text-red-600" 
+                    onClick={handleLogout}
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Déconnexion</span>
+                  </DropdownItem>
+                </Dropdown>
               </>
             ) : (
               <Link href="/login">
