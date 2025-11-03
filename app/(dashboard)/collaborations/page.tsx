@@ -88,7 +88,7 @@ export default function CollaborationsPage() {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                placeholder={activeTab === "messages" ? "Rechercher conversations..." : "Rechercher services..."}
+                placeholder={activeTab === "messages" ? "Rechercher conversations..." : "Rechercher produits..."}
                 className="border-gray-200 border-1 pl-10 bg-input dfocus:border-primary/50"
               />
             </div>
@@ -192,7 +192,7 @@ export default function CollaborationsPage() {
           <div className="p-4 border-t">
             <Button className="w-full mb-2 bg-primary hover:bg-primary/90 shadow-sm">
               <Plus className="w-4 h-4 mr-2" />
-              {activeTab === "messages" ? "Nouvelle conversation" : "Publier un service"}
+              {activeTab === "messages" ? "Nouvelle conversation" : "Publier un produit"}
             </Button>
           </div>
         </div>
@@ -443,13 +443,15 @@ export default function CollaborationsPage() {
           <div className="p-4">
             <h4 className="serif-font font-light mb-3">Actions rapides</h4>
             <div className="space-y-2">
-              <Button
-                className="w-full justify-start bg-transparent dhover:bg-muted/50"
-                size="sm"
-              >
-                <Scissors className="w-4 h-4 mr-2" />
-                Nouveau projet
-              </Button>
+              <Link href="/collaborations/create-project">
+                <Button
+                  className="w-full justify-start bg-transparent dhover:bg-muted/50"
+                  size="sm"
+                >
+                  <Scissors className="w-4 h-4 mr-2" />
+                  Nouveau projet
+                </Button>
+              </Link>
               <Button
                 className="w-full justify-start bg-transparent dhover:bg-muted/50"
                 size="sm"

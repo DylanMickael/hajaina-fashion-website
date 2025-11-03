@@ -7,7 +7,7 @@ import { Handshake } from "lucide-react"
 export const ManajaButton = () => {
   const [clicked, setClicked] = useState(false)
   const className = `font-light tracking-[0.1em] uppercase px-8 py-3 bg-black text-white
-        ${clicked && "bg-green-600 text-gray-200 border-gray-400 font-bold"}`
+        ${clicked && "bg-green-600 text-gray-200 border-gray-400 font-normal"}`
 
   return (
     <Button

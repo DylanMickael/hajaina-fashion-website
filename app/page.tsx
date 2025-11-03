@@ -252,13 +252,17 @@ export default function HajAinaFashion() {
                         </p>
                         
                         <div className="flex gap-4">
+                          <ManajaButton/>
                           <Link href={`/collections/${collection.id}`}>
-                            <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase px-8 py-3">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="tracking-[0.1em] font-light uppercase text-xs bg-transparent"
+                            >
                               Découvrir
                               <ArrowRight className="ml-3 h-4 w-4" /> 
                             </Button>
                           </Link>
-                          <ManajaButton/>
                         </div>
                       </div>
                     </div>

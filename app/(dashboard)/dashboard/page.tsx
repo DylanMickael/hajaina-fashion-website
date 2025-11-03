@@ -136,7 +136,7 @@ export default function DashboardPage() {
                 <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Handshake className="h-8 w-8 text-black" />
                 </div>
-                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Espace de collaborations</h3>
+                <h3 className="text-xl font-light mb-4 serif-font tracking-wide">Projets & Marketplace</h3>
                 <p className="text-gray-600 font-light leading-relaxed mb-6">Gérer vos partenariats et projets collaboratifs.</p>
                 <Link href="/collaborations">
                   <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase">Accéder</Button>
