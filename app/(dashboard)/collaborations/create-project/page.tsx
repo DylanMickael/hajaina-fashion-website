@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Header from "@/components/header"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { ClientMap } from "@/components/ui/client-map"
+import { OSMap } from "@/components/ui/map"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -222,134 +222,51 @@ export default function CreateProjectPage() {
           <div className="space-y-6">
             <h2 className="text-2xl font-light serif-font mb-6">Collaborateurs potentiels</h2>
             
-            <div className="grid grid-cols-3 gap-6">
-              <div className="col-span-2">
-                <ClientMap
-                  center={{ lat: -18.8792, lng: 47.5079 }} // Centre d'Antananarivo
-                  zoom={12}
-                  markers={potentialCollaborators.map(collaborator => ({
-                    position: {
-                      lat: collaborator.location === "Antananarivo" ? -18.8792 : -18.1499,
-                      lng: collaborator.location === "Antananarivo" ? 47.5079 : 49.4023,
-                    },
-                    title: collaborator.name,
-                    description: `${collaborator.expertise.join(", ")} • ${collaborator.rating}⭐`
-                  }))}
-                  onMarkerClick={(marker: { lat: number; lng: number; title: string; description?: string }) => {
-                    // Vous pouvez ajouter une logique pour filtrer ou mettre en évidence le collaborateur sélectionné
-                    console.log(marker)
-                  }}
-                />
+            <div className="grid grid-cols-2 gap-6">
+              <div className="h-[600px]">
+                <OSMap />
+              </div>
 
-                <div className="mt-6 space-y-4">
-                  {potentialCollaborators.map((collaborator) => (
-                    <Card key={collaborator.id} className="hover:shadow-md transition-all">
-                      <CardContent className="p-4">
-                        <div className="flex items-start space-x-4">
-                          <div className="relative w-16 h-16">
-                            <Image
-                              src={collaborator.image}
-                              alt={collaborator.name}
-                              fill
-                              className="object-cover rounded-lg"
-                            />
+              <div className="space-y-4 overflow-auto h-[600px] pr-4">
+                {potentialCollaborators.map((collaborator) => (
+                  <Card key={collaborator.id} className="hover:shadow-md transition-all">
+                    <CardContent className="p-4">
+                      <div className="flex items-start space-x-4">
+                        <div className="relative w-16 h-16">
+                          <Image
+                            src={collaborator.image}
+                            alt={collaborator.name}
+                            fill
+                            className="object-cover rounded-lg"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold">{collaborator.name}</h3>
+                          <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-2">
+                            <MapPin className="w-4 h-4" />
+                            <span>{collaborator.location}</span>
                           </div>
-                          <div className="flex-1">
-                            <h3 className="font-semibold">{collaborator.name}</h3>
-                            <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-2">
-                              <MapPin className="w-4 h-4" />
-                              <span>{collaborator.location}</span>
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {collaborator.expertise.map((skill) => (
+                              <Badge key={skill} variant="secondary">
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3 text-sm">
+                              <span>⭐ {collaborator.rating}</span>
+                              <span className="text-muted-foreground">{collaborator.projects} projets</span>
                             </div>
-                            <div className="flex flex-wrap gap-2 mb-3">
-                              {collaborator.expertise.map((skill) => (
-                                <Badge key={skill} variant="secondary">
-                                  {skill}
-                                </Badge>
-                              ))}
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-3 text-sm">
-                                <span>⭐ {collaborator.rating}</span>
-                                <span className="text-muted-foreground">{collaborator.projects} projets</span>
-                              </div>
-                              <Button size="sm">
-                                Contacter
-                              </Button>
-                            </div>
+                            <Button size="sm">
+                              Contacter
+                            </Button>
                           </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-              
-              <div>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Filtres de recherche</CardTitle>
-                    <CardDescription>Affinez votre recherche de collaborateurs</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <label className="text-sm font-medium mb-1 block">Expertise</label>
-                        <Select>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Sélectionnez une expertise" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="design">Design</SelectItem>
-                            <SelectItem value="production">Production</SelectItem>
-                            <SelectItem value="marketing">Marketing</SelectItem>
-                            <SelectItem value="couture">Couture</SelectItem>
-                          </SelectContent>
-                        </Select>
                       </div>
-                      
-                      <div>
-                        <label className="text-sm font-medium mb-1 block">Zone géographique</label>
-                        <Input
-                          type="text"
-                          placeholder="Ville ou région"
-                          className="w-full"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="text-sm font-medium mb-1 block">Note minimum</label>
-                        <Select>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Sélectionnez une note" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="4.5">4.5+ étoiles</SelectItem>
-                            <SelectItem value="4">4+ étoiles</SelectItem>
-                            <SelectItem value="3.5">3.5+ étoiles</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <label className="text-sm font-medium mb-1 block">Projets réalisés</label>
-                        <Select>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Nombre de projets" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="20">20+ projets</SelectItem>
-                            <SelectItem value="10">10+ projets</SelectItem>
-                            <SelectItem value="5">5+ projets</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <Button className="w-full mt-4">
-                        Appliquer les filtres
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </div>
           </div>

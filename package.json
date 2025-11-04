@@ -53,7 +53,6 @@
     "geist": "latest",
     "gsap": "^3.13.0",
     "input-otp": "latest",
-    "leaflet": "^1.9.4",
     "lucide-react": "^0.454.0",
     "next": "15.2.4",
     "next-themes": "latest",
@@ -74,7 +73,6 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.9.21",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
