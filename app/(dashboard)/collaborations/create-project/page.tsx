@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Header from "@/components/header"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Map } from "@/components/ui/map"
+import { ClientMap } from "@/components/ui/client-map"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -224,7 +224,7 @@ export default function CreateProjectPage() {
             
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-2">
-                <Map
+                <ClientMap
                   center={{ lat: -18.8792, lng: 47.5079 }} // Centre d'Antananarivo
                   zoom={12}
                   markers={potentialCollaborators.map(collaborator => ({
@@ -235,7 +235,7 @@ export default function CreateProjectPage() {
                     title: collaborator.name,
                     description: `${collaborator.expertise.join(", ")} • ${collaborator.rating}⭐`
                   }))}
-                  onMarkerClick={(marker) => {
+                  onMarkerClick={(marker: { lat: number; lng: number; title: string; description?: string }) => {
                     // Vous pouvez ajouter une logique pour filtrer ou mettre en évidence le collaborateur sélectionné
                     console.log(marker)
                   }}

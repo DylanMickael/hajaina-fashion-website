@@ -2,7 +2,9 @@
 
 import { useEffect, useRef } from 'react'
 import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
+
+// Import le CSS de Leaflet dans un module CSS
+import styles from '@/styles/map.module.css'
 
 // Fix pour les icônes par défaut de Leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl
@@ -24,7 +26,7 @@ interface MapProps {
   className?: string
 }
 
-export function Map({ center, zoom, markers = [], onMarkerClick, className = '' }: MapProps) {
+function Map({ center, zoom, markers = [], onMarkerClick, className = '' }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<L.Map | null>(null)
   const markersRef = useRef<L.Marker[]>([])
@@ -85,9 +87,10 @@ export function Map({ center, zoom, markers = [], onMarkerClick, className = '' 
     <div className={className}>
       <div 
         ref={mapRef} 
-        className="overflow-hidden rounded-lg"
-        style={{ width: '100%', height: '400px' }} 
+        className={styles.mapContainer}
       />
     </div>
   )
 }
+
+export default Map
