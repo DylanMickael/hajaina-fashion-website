@@ -15,7 +15,7 @@ export default function ExhibitionsPage() {
       id: 1,
       title: "Heritage Moderne",
       designer: "Miora Rasoanaivo",
-      image: "/img/Collection1.jpg",
+      image: "/service/stylisme1.jpeg",
       views: 1243,
       likes: 342,
       status: "live",

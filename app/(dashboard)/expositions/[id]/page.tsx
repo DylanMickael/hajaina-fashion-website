@@ -3,10 +3,11 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { MessageCircle } from "lucide-react"
+import { MessageCircle, ChevronLeft, ChevronRight, Volume2, Heart, Send, Play, Pause, RotateCcw } from "lucide-react"
 import Link from "next/link"
 import Typed from "typed.js"
 import "@google/model-viewer"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function ExpositionsPage({ params }: { params: { id: string } }) {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -14,15 +15,41 @@ export default function ExpositionsPage({ params }: { params: { id: string } }) 
   const [liked, setLiked] = useState(false)
   const [comment, setComment] = useState("")
   const [comments, setComments] = useState([
-    { id: 1, author: "Sophie Durand", text: "Magnifique collection! 🌟", time: "2 min" },
-    { id: 2, author: "Marc Rakoto", text: "L'artisanat est impeccable", time: "15 min" },
+    { 
+      id: 1, 
+      author: "Sophie Durand", 
+      text: "Magnifique collection! 🌟", 
+      time: "2 min",
+      avatar: "/img/Hery.jpg"
+    },
+    { 
+      id: 2, 
+      author: "Marc Rakoto", 
+      text: "L'artisanat est impeccable", 
+      time: "15 min",
+      avatar: "/img/Lalaina.jpg"
+    },
   ])
   const [currentNarrativeIndex, setCurrentNarrativeIndex] = useState(0)
   const [rotationAngle, setRotationAngle] = useState(0)
+  const [currentModelIndex, setCurrentModelIndex] = useState(0)
 
   const typedRef = useRef<Typed | null>(null)
   const textContainerRef = useRef<HTMLDivElement>(null)
   const rotationIntervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  const models = [
+    "/models/Model.glb",
+    "/models/Model.glb",
+  ]
+
+  const nextModel = () => {
+    setCurrentModelIndex((prev) => (prev + 1) % models.length)
+  }
+
+  const previousModel = () => {
+    setCurrentModelIndex((prev) => (prev - 1 + models.length) % models.length)
+  }
 
   const narratives = [
     "Cette collection raconte l'histoire de l'héritage malgache modernisé.",
@@ -101,7 +128,7 @@ export default function ExpositionsPage({ params }: { params: { id: string } }) 
 
   const handleAddComment = () => {
     if (comment.trim()) {
-      setComments([...comments, { id: comments.length + 1, author: "Vous", text: comment, time: "À l'instant" }])
+      setComments([...comments, { id: comments.length + 1, author: "Vous", text: comment, time: "À l'instant", avatar: "/img/avatars/default.jpg" }])
       setComment("")
     }
   }
@@ -135,13 +162,13 @@ export default function ExpositionsPage({ params }: { params: { id: string } }) 
                     variant="ghost"
                 className="rounded-full w-10 h-10 bg-white/10"
                   >
-                    ↺
+                    <RotateCcw className="w-5 h-5" />
                   </Button>
                   <Button
                     onClick={handleAutoPlay}
                     className="rounded-full w-10 h-10 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
                   >
-                    {isPlaying ? "⏸" : "▶"}
+                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
                   </Button>
               <Button
                 onClick={() => {
@@ -151,13 +178,13 @@ export default function ExpositionsPage({ params }: { params: { id: string } }) 
                   }
                 }}
                 variant="ghost"
-                className={`rounded-full w-10 h-10 ${isSpeaking ? "bg-green-600" : "bg-white/10"} `}
+                className={`rounded-full w-10 h-10 ${isSpeaking ? "bg-green-600" : "bg-green-900/50"} `}
               >
-                🔊
+                <Volume2 className="w-5 h-5" />
               </Button>
               <Link href="/expositions">
-                <Button variant="ghost" className="rounded-full w-10 h-10 bg-white/10 backdrop-blur-sm">
-                  ←
+                <Button variant="ghost" className="rounded-full w-10 h-10 bg-red-800/50 backdrop-blur-sm">
+                  <ChevronLeft className="w-5 h-5" />
                 </Button>
               </Link>
               </div>
@@ -176,8 +203,16 @@ export default function ExpositionsPage({ params }: { params: { id: string } }) 
           {/* Center - 3D Model Section */}
           <div className="flex-1 flex items-center justify-center mx-2 lg:mx-4 h-screen">
             <div className="relative w-full h-full flex items-center justify-center">
+              <Button
+                onClick={previousModel}
+                variant="ghost"
+                className="absolute bottom-[50%] left-6 z-10 rounded-full w-14 h-14 bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white"
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </Button>
+              
               <model-viewer
-                src="/models/Model.glb"
+                src={models[currentModelIndex]}
                 alt="3D Clothing Model"
                 camera-controls
                 ar
@@ -190,11 +225,26 @@ export default function ExpositionsPage({ params }: { params: { id: string } }) 
                   transform: `rotateY(${rotationAngle}deg)`,
                 }}
               />
+
+              <Button
+                onClick={nextModel}
+                variant="ghost"
+                className="absolute right-10 bottom-[50%] z-10 rounded-full w-14 h-14 bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white"
+              >
+                <ChevronRight className="w-8 h-8" />
+              </Button>
+
               <div className="absolute inset-0 rounded-lg pointer-events-none" />
               <div
                 className="absolute inset-4 rounded-lg pointer-events-none"
                 style={{ borderRadius: "50%" }}
               />
+              
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2">
+                <span className="text-white">
+                  {currentModelIndex + 1} / {models.length}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -207,7 +257,10 @@ export default function ExpositionsPage({ params }: { params: { id: string } }) 
                 <div className="flex-1 overflow-y-auto space-y-2 pr-2 mb-4">
                   {comments.map((c) => (
                     <div key={c.id} className="group flex gap-3 items-start animate-in slide-in-from-right">
-                      <div className="w-8 h-8 rounded-full bg-white/10 flex-shrink-0 backdrop-blur-sm" />
+                      <Avatar className="w-8 h-8">
+                        <AvatarImage src={c.avatar} alt={c.author} />
+                        <AvatarFallback>{c.author.charAt(0)}</AvatarFallback>
+                      </Avatar>
                       <div className="flex-1 bg-white/10 backdrop-blur-sm rounded-2xl p-3">
                         <p className="font-light text-xs">
                           <span className="text-white/90 font-medium">{c.author}</span>

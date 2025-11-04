@@ -6,6 +6,7 @@ declare namespace JSX {
       'camera-controls'?: boolean;
       ar?: boolean;
       'auto-rotate'?: boolean;
+      'rotation-speed'?: string;
     }, HTMLElement>;
   }
 }
