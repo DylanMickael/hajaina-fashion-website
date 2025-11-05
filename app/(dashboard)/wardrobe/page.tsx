@@ -102,7 +102,7 @@ export default function WardrobePage() {
                   : "bg-white text-black hover:bg-gray-100 border border-gray-200"
               }`}
             >
-              <Sparkles className="h-4 w-4" /> IA Analysis
+              <Sparkles className="h-4 w-4" /> Analyses
             </button>
           </div>
 

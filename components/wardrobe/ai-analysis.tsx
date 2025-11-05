@@ -67,7 +67,7 @@ export default function AIAnalysis({ items }: AIAnalysisProps) {
     <div className="p-12">
       <div className="mb-8">
         <h2 className="text-3xl font-light serif-font tracking-wide mb-2 flex items-center gap-3">
-          <Sparkles className="h-8 w-8" /> Analyse IA de votre Garde-Robe
+          <Sparkles className="h-8 w-8" /> Analyse de votre Garde-Robe
         </h2>
         <p className="text-gray-600 font-light">Insights personnalisés pour optimiser votre collection</p>
       </div>

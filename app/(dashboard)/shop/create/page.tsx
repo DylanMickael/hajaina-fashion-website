@@ -43,7 +43,7 @@ export default function CreateProductPage() {
         <div className="container mx-auto px-6 max-w-2xl">
           {/* Back Button */}
           <Link
-            href="/dashboard/shop"
+            href="/shop"
             className="inline-flex items-center gap-2 mb-8 text-gray-600 hover:text-black transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />

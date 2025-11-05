@@ -118,7 +118,7 @@ export default function CreateExhibitionPage() {
                 </div>
 
                 <div className="flex gap-4">
-                  <Link href="/dashboard/exhibitions" className="flex-1">
+                  <Link href="/exhibitions" className="flex-1">
                     <Button variant="outline" className="w-full font-light tracking-wide bg-transparent">
                       Annuler
                     </Button>
@@ -269,7 +269,7 @@ export default function CreateExhibitionPage() {
                   >
                     Retour
                   </Button>
-                  <Link href="/dashboard/exhibitions" className="flex-1">
+                  <Link href="/exhibitions" className="flex-1">
                     <Button className="w-full bg-black text-white hover:bg-gray-800 font-light tracking-wide">
                       Terminer
                       <Check className="w-4 h-4 ml-2" />

@@ -102,7 +102,7 @@ export default function CreateProjectPage() {
       <div className="border-b border-gray-200">
         <div className="container mx-auto px-6 py-6">
           <Link
-            href="/dashboard/projects"
+            href="/projects"
             className="inline-flex items-center gap-2 mb-6 text-gray-600 hover:text-black transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />

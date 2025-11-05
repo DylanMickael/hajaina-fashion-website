@@ -3,184 +3,246 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Grid, List } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+import { Plus, Leaf, RotateCcw, Eye, Edit2, Trash2 } from "lucide-react"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import collections from "@/data/collections.json";
+import Link from "next/link"
 
-export default function CollectionsPage() {
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const [selectedCategory, setSelectedCategory] = useState("all")
-  const categories = ["all", "Couture", "Durable", "Streetwear", "Fusion", "Avant-garde"]
-  const filteredCollections =
-    selectedCategory === "all"
-      ? collections
-      : collections.filter((collection) => collection.category === selectedCategory)
+interface Product {
+  id: string
+  name: string
+  category: "vetement" | "recyclable" | "accessoire" | "chaussure"
+  price: number
+  image: string
+  status: "active" | "draft"
+  sales: number
+  environmentalScore: number
+}
+
+const mockProducts: Product[] = [
+  {
+    id: "1",
+    name: "Robe Malagasy Upcycled",
+    category: "recyclable",
+    price: 89,
+    image: "/malagasy-dress-recycled.jpg",
+    status: "active",
+    sales: 12,
+    environmentalScore: 92,
+  },
+  {
+    id: "2",
+    name: "Chemise Linen Éthique",
+    category: "vetement",
+    price: 65,
+    image: "/ethical-linen-shirt.jpg",
+    status: "active",
+    sales: 8,
+    environmentalScore: 85,
+  },
+  {
+    id: "3",
+    name: "Sac Tissé Recyclé",
+    category: "accessoire",
+    price: 45,
+    image: "/woven-recycled-bag.jpg",
+    status: "draft",
+    sales: 0,
+    environmentalScore: 88,
+  },
+]
+
+const getCategoryColor = (category: string) => {
+  switch (category) {
+    case "recyclable":
+      return "bg-green-100 text-green-800"
+    case "vetement":
+      return "bg-blue-100 text-blue-800"
+    case "accessoire":
+      return "bg-purple-100 text-purple-800"
+    case "chaussure":
+      return "bg-amber-100 text-amber-800"
+    default:
+      return "bg-gray-100 text-gray-800"
+  }
+}
+
+const getCategoryLabel = (category: string) => {
+  const labels: Record<string, string> = {
+    vetement: "Vêtement",
+    recyclable: "Recyclable",
+    accessoire: "Accessoire",
+    chaussure: "Chaussure",
+  }
+  return labels[category] || category
+}
+
+export default function ShopPage() {
+  const [products, setProducts] = useState<Product[]>(mockProducts)
+
+  const totalRevenue = products.reduce((sum, p) => sum + p.price * p.sales, 0)
+  const activeProducts = products.filter((p) => p.status === "active").length
+  const draftProducts = products.filter((p) => p.status === "draft").length
 
   return (
-    <div className="min-h-screen bg-white text-black pt-20">
-      {/* Header */}
+    <div className="min-h-screen bg-white text-black">
       <Header />
-      {/* Hero Section */}
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
+          {/* Header Section */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-extralight tracking-[0.2em] mb-6 serif-font">Ma boutique</h1>
+            <h1 className="text-6xl font-extralight tracking-[0.2em] mb-6 serif-font">Ma Boutique</h1>
             <div className="w-32 h-px bg-black mx-auto mb-8" />
             <p className="text-gray-600 max-w-3xl mx-auto font-light leading-relaxed text-lg">
-                Gérer votre propre boutique en ligne.
+              Partagez vos créations éthiques et durables. Vendez des vêtements, accessoires et même des articles
+              recyclables.
             </p>
           </div>
-        </div>
-      </section>
-      {/* Filters and View Controls */}
-      <section className="py-8 border-b border-gray-100">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex flex-wrap gap-3">
-              {categories.map((category) => (
-                <Button
-                  key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCategory(category)}
-                  className={`text-xs tracking-[0.1em] font-light uppercase ${
-                    selectedCategory === category
-                      ? "bg-black text-white"
-                      : "bg-transparent border-gray-300 hover:border-black"
-                  }`}
-                >
-                  {category === "all" ? "Toutes" : category}
-                </Button>
-              ))}
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600 font-light">
-                {filteredCollections.length} collection{filteredCollections.length > 1 ? "s" : ""}
-              </span>
-              <div className="flex gap-2">
-                <Button
-                  variant={viewMode === "grid" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("grid")}
-                  className="p-2"
-                >
-                  <Grid className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === "list" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("list")}
-                  className="p-2"
-                >
-                  <List className="h-4 w-4" />
-                </Button>
+
+          {/* Stats Section */}
+          <div className="grid md:grid-cols-4 gap-6 mb-16">
+            <Card className="border-0 shadow-sm hover:shadow-md transition-all">
+              <CardContent className="p-6">
+                <p className="text-gray-600 font-light text-sm mb-2">Produits Actifs</p>
+                <p className="text-4xl font-extralight serif-font">{activeProducts}</p>
+              </CardContent>
+            </Card>
+            <Card className="border-0 shadow-sm hover:shadow-md transition-all">
+              <CardContent className="p-6">
+                <p className="text-gray-600 font-light text-sm mb-2">Brouillons</p>
+                <p className="text-4xl font-extralight serif-font">{draftProducts}</p>
+              </CardContent>
+            </Card>
+            <Card className="border-0 shadow-sm hover:shadow-md transition-all">
+              <CardContent className="p-6">
+                <p className="text-gray-600 font-light text-sm mb-2">Ventes Totales</p>
+                <p className="text-4xl font-extralight serif-font">{products.reduce((sum, p) => sum + p.sales, 0)}</p>
+              </CardContent>
+            </Card>
+            <Card className="border-0 shadow-sm hover:shadow-md transition-all">
+              <CardContent className="p-6">
+                <p className="text-gray-600 font-light text-sm mb-2">Chiffre d'Affaires</p>
+                <p className="text-4xl font-extralight serif-font">{totalRevenue.toLocaleString()}€</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Highlight: Recycled Items */}
+          <Card className="mb-12 border-2 border-green-200 bg-gradient-to-r from-green-50 to-transparent">
+            <CardContent className="p-8">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <RotateCcw className="h-6 w-6 text-green-700" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-light serif-font mb-2">Mode Recyclable & Durable</h3>
+                  <p className="text-gray-600 font-light leading-relaxed">
+                    Chez Haj'Aina, nous valorisons les créateurs qui œuvrent pour une mode durable. Vous pouvez vendre
+                    des articles recyclés, upcyclés ou fabriqués à partir de matériaux éco-responsables. Ces produits
+                    bénéficient d'une meilleure visibilité et d'une badge spécial pour attirer les consommateurs
+                    conscients.
+                  </p>
+                </div>
               </div>
-            </div>
+            </CardContent>
+          </Card>
+
+          {/* Add Product Button */}
+          <div className="mb-12">
+            <Link href="/shop/create">
+              <Button className="bg-black text-white hover:bg-gray-800 font-light tracking-[0.1em] uppercase flex items-center gap-2">
+                <Plus className="h-5 w-5" />
+                Ajouter un Produit
+              </Button>
+            </Link>
+          </div>
+
+          {/* Products Grid */}
+          <div className="grid md:grid-cols-3 gap-8">
+            {products.map((product) => (
+              <Card key={product.id} className="border-0 shadow-sm hover:shadow-lg transition-all overflow-hidden">
+                <div className="relative h-64 bg-gray-200 overflow-hidden">
+                  <img
+                    src={product.image || "/placeholder.svg"}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                  {product.category === "recyclable" && (
+                    <div className="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full flex items-center gap-1 text-xs font-semibold">
+                      <Leaf className="h-3 w-3" />
+                      Recyclable
+                    </div>
+                  )}
+                  {product.status === "draft" && (
+                    <div className="absolute top-3 left-3 bg-gray-800 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                      Brouillon
+                    </div>
+                  )}
+                </div>
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-lg font-light serif-font flex-1">{product.name}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${getCategoryColor(product.category)}`}
+                    >
+                      {getCategoryLabel(product.category)}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
+                    <div>
+                      <p className="text-gray-500 font-light">Prix</p>
+                      <p className="text-lg font-light serif-font">{product.price}€</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 font-light">Ventes</p>
+                      <p className="text-lg font-light serif-font">{product.sales}</p>
+                    </div>
+                  </div>
+                  <div className="mb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-xs text-gray-600 font-light">Score Environnemental</p>
+                      <p className="text-sm font-semibold text-green-600">{product.environmentalScore}%</p>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        className="bg-green-500 h-2 rounded-full"
+                        style={{ width: `${product.environmentalScore}%` }}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link href={`/shop/${product.id}`} className="flex-1">
+                      <Button
+                        variant="outline"
+                        className="w-full border-gray-300 hover:border-black font-light text-xs bg-transparent"
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        Détails
+                      </Button>
+                    </Link>
+                    <Button
+                      variant="outline"
+                      className="flex-1 border-gray-300 hover:border-black font-light text-xs bg-transparent"
+                    >
+                      <Edit2 className="h-4 w-4 mr-2" />
+                      Éditer
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="border-gray-300 hover:border-red-500 text-red-600 font-light text-xs bg-transparent"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
-      {/* Collections Grid/List */}
-      <section className="py-16">
-        <div className="container mx-auto px-6">
-          {viewMode === "grid" ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-              {filteredCollections.map((collection) => (
-                <Card
-                  key={collection.id}
-                  className="group cursor-pointer border-0 shadow-none hover:shadow-2xl transition-all duration-500 overflow-hidden"
-                >
-                  <CardContent className="p-0">
-                    <Link href={`/collections/${collection.id}`}>
-                      <div className="relative h-96 overflow-hidden">
-                        <Image
-                          src={collection.image || "/placeholder.svg"}
-                          alt={collection.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <div className="absolute bottom-6 left-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-500">
-                          <Badge className="mb-2 bg-white/20 text-white border-white/30 backdrop-blur-sm">
-                            {collection.pieces} pièces
-                          </Badge>
-                        </div>
-                      </div>
-                    </Link>
-                    <div className="p-8">
-                      <Badge variant="outline" className="mb-4 text-xs tracking-[0.15em] font-light uppercase">
-                        {collection.category}
-                      </Badge>
-                      <h3 className="text-2xl font-light mb-2 serif-font tracking-wide">{collection.title}</h3>
-                      <p className="text-gray-600 text-sm mb-4 tracking-wide font-light">Par {collection.designer}</p>
-                      <p className="text-gray-700 text-sm leading-relaxed font-light mb-4">{collection.description}</p>
-                      <div className="flex justify-between items-center">
-                        <span className="text-lg font-light">{collection.price}</span>
-                        <Link href={`/collections/${collection.id}`}>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="tracking-[0.1em] font-light uppercase bg-transparent"
-                          >
-                            Découvrir
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <div className="space-y-8">
-              {filteredCollections.map((collection) => (
-                <Card
-                  key={collection.id}
-                  className="group cursor-pointer border-0 shadow-none hover:shadow-lg transition-all duration-300"
-                >
-                  <CardContent className="p-0">
-                    <div className="grid md:grid-cols-3 gap-8">
-                      <Link href={`/collections/${collection.id}`} className="relative h-64 overflow-hidden rounded-lg">
-                        <Image
-                          src={collection.image || "/placeholder.svg"}
-                          alt={collection.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </Link>
-                      <div className="md:col-span-2 p-8 flex flex-col justify-center">
-                        <div className="flex items-center gap-4 mb-4">
-                          <Badge variant="outline" className="text-xs tracking-[0.15em] font-light uppercase">
-                            {collection.category}
-                          </Badge>
-                          <span className="text-sm text-gray-500 font-light">{collection.pieces} pièces</span>
-                        </div>
-                        <h3 className="text-3xl font-light mb-3 serif-font tracking-wide">{collection.title}</h3>
-                        <p className="text-gray-600 mb-4 tracking-wide font-light">Par {collection.designer}</p>
-                        <p className="text-gray-700 leading-relaxed font-light mb-6">{collection.description}</p>
-                        <div className="flex justify-between items-center">
-                          <span className="text-xl font-light">{collection.price}</span>
-                          <Link href={`/collections/${collection.id}`}>
-                            <Button variant="outline" className="tracking-[0.1em] font-light uppercase bg-transparent">
-                              Découvrir la Collection
-                              <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-      <Footer /> {/* Added Footer */}
+      <Footer />
     </div>
   )
 }
