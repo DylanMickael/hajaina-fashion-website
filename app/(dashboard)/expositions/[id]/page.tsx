@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { MessageCircle, ChevronLeft, ChevronRight, Volume2, Heart, Send, Play, Pause, RotateCcw } from "lucide-react"
+import { MessageCircle, ChevronLeft, ChevronRight, Volume2, Heart, Send, Play, Pause, RotateCcw, VolumeOff } from "lucide-react"
 import Link from "next/link"
 import Typed from "typed.js"
 import "@google/model-viewer"
@@ -11,7 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function ExpositionsPage({ params }: { params: { id: string } }) {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [isSpeaking, setIsSpeaking] = useState(false)
+  const [isSpeaking, setIsSpeaking] = useState(true)
   const [liked, setLiked] = useState(false)
   const [comment, setComment] = useState("")
   const [comments, setComments] = useState([
@@ -180,7 +180,7 @@ export default function ExpositionsPage({ params }: { params: { id: string } }) 
                 variant="ghost"
                 className={`rounded-full w-10 h-10 ${isSpeaking ? "bg-green-600" : "bg-green-900/50"} `}
               >
-                <Volume2 className="w-5 h-5" />
+                { isSpeaking ?<Volume2 className="w-5 h-5" /> : <VolumeOff className="w-5 h-5" /> }
               </Button>
               <Link href="/expositions">
                 <Button variant="ghost" className="rounded-full w-10 h-10 bg-red-800/50 backdrop-blur-sm">
