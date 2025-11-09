@@ -70,7 +70,7 @@ export default function NotificationsPage() {
       message: "Félicitations ! Vous avez obtenu le badge 'Éco-Guerrier' pour 10 articles recyclés",
       time: "Il y a 3 heures",
       read: false,
-      actionUrl: "/profile",
+      actionUrl: "/dashboard",
     },
     {
       id: "5",
