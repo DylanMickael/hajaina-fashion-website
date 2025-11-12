@@ -1,7 +1,7 @@
 "use client"
 
 import useChat from "@/hooks/use-chat"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import Webcam from "react-webcam"
 import { Button } from "@/components/ui/button"
 import { Send, Image as ImageIcon, Camera, Loader2, X } from "lucide-react"
@@ -26,6 +26,8 @@ export default function ChatPage() {
     handleImageUpload,
     handleSend,
   } = useChat();
+  
+  const [fullscreenImage, setFullscreenImage] = useState<string | undefined>(undefined);
 
   return (
     <div className="min-h-screen bg-white text-black">
@@ -62,7 +64,10 @@ export default function ChatPage() {
                     }`}
                     >
                     {msg.image && (
-                        <div className="relative h-48 w-full mb-4 rounded overflow-hidden">
+                        <div 
+                            className="relative h-48 w-full mb-4 rounded overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick={() => setFullscreenImage(msg.image)}
+                        >
                         <Image
                             src={msg.image}
                             alt="Uploaded image"
@@ -193,6 +198,30 @@ export default function ChatPage() {
                 </div>
             )}
         </section>
+        
+        {/* Fullscreen Image Preview */}
+        {fullscreenImage && (
+            <div 
+                className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
+                onClick={() => setFullscreenImage(undefined)}
+            >
+                <button
+                    onClick={() => setFullscreenImage(undefined)}
+                    className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center"
+                >
+                    <X className="text-white w-6 h-6" />
+                </button>
+                <div className="relative max-w-5xl max-h-[90vh] w-full h-full">
+                    <Image
+                        src={fullscreenImage}
+                        alt="Full screen preview"
+                        fill
+                        className="object-contain"
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                </div>
+            </div>
+        )}
     </div>
   );
 }
