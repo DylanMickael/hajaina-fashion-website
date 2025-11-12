@@ -44,12 +44,12 @@ interface FavoriteItem {
 
 export default function ProfilePage() {
   const [user] = useState({
-    name: "Sophie Raharison",
-    email: "sophie.raharison@example.com",
+    name: "Hery Raharison",
+    email: "hery.raharison@example.com",
     location: "Antananarivo, Madagascar",
     joinDate: "Janvier 2024",
     bio: "Passionnée de mode éthique et durable. Designer indépendante spécialisée dans la fusion des traditions malgaches avec les tendances contemporaines.",
-    avatar: "/placeholder.svg?height=200&width=200&text=User+Avatar",
+    avatar: "/img/Hery.jpg",
     coverImage: "/placeholder.svg?height=400&width=1200&text=Profile+Cover",
     manajaCount: 247,
     followersCount: 1234,
